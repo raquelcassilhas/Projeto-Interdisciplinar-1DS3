@@ -1,0 +1,759 @@
+/* ============================== */
+/* RESET E ESTILIZAÇÕES BASE */
+/* ============================== */
+/* Remove espaçamentos padrão, define box-sizing para facilitar o controle de tamanhos e aplica fonte padrão */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Special Gothic Expanded One", sans-serif;
+    font-weight: 100;
+}
+
+/* Fundo branco para toda a página */
+body {
+    background-color: #ffffff;
+}
+
+/* ============================== */
+/* CABEÇALHO (HEADER) */
+/* ============================== */
+/* Organiza o header com flexbox, espaça os itens entre si e centraliza verticalmente, com espaçamento lateral grande */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 150px;
+    background-color: transparent;
+    background-position: 50% 2dvh;
+    color: rgb(0, 0, 0);
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    z-index: 2; 
+}
+
+header i{
+    opacity: 0;
+}
+
+/* Título do header: ocupa até 400px, tamanho de fonte responsivo e peso médio, cursor padrão */
+header h1 {
+    width: 100%;
+    max-width: 400px;
+    font-size: clamp(20px, 1.5vw, 28px); /* Fonte que se adapta à largura da tela */
+    font-weight: 600;
+    cursor: default;
+}
+
+/* ============================== */
+/* MENU DE NAVEGAÇÃO */
+/* ============================== */
+/* Lista horizontal com espaçamento entre os itens, sem marcadores padrão */
+nav ul {
+    display: flex;
+    gap: 40px;
+    flex-wrap: nowrap;
+    list-style: none;
+}
+
+/* Itens do menu: cursor muda para indicar que são clicáveis, fonte específica, tamanho responsivo */
+
+a{
+        cursor: pointer;
+    transition: transform 0.2s ease-in-out; /* Animação suave ao passar o mouse */
+    font-family: "Alumni Sans SC", sans-serif;
+    font-size: clamp(18px, 2.0vw, 32px);
+    font-weight: 400;
+    text-decoration: none;
+    color: black;;
+}
+
+/* Efeito ao passar o mouse: aumenta o tamanho e sublinha o texto */
+.menuhover:hover {
+    transform: scale(1.2);
+    transition-duration: 0.2s;
+    /* text-decoration: underline; */
+}
+
+
+/* Submenu oculto por padrão */
+.submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: -80%;
+    min-width: 160px;
+    z-index: 3; /* z-index definido como maior que 2 */
+    border-radius: 4px;
+}
+
+
+/* Mostrar submenu ao passar o mouse no item pai */
+#clubes:hover .submenu {
+    display: block;
+}
+
+/* Estilo dos itens do submenu */
+.submenu li {
+    list-style: none;
+}
+
+.submenu li a {
+    text-align: center;
+    display: block;
+    padding: 5px 10px;
+    color: rgb(28, 27, 27);
+    text-decoration: none;
+    background-color: #ffffff;
+    font-size: 16px;
+}
+
+/* Efeito hover nos links do submenu */
+.submenu li a:hover {
+    background-color: rgba(233, 233, 233);
+}
+
+
+
+
+
+
+
+/* ============================== */
+/* IMAGEM PRINCIPAL COM TEXTO SOBREPOSTO */
+/* ============================== */
+/* Container relativo para que o texto possa ser posicionado sobre a imagem */
+.img1 {
+    position: relative;
+}
+
+/* Imagem ocupa toda a largura disponível, altura ajusta automaticamente */
+.img1 img {
+    width: 100%;
+    height: auto;
+}
+
+/* Texto sobreposto na imagem, posicionado no canto superior direito, fonte grande e sombra para destaque */
+.img1 p {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 55%;
+    top: 0%;
+    transform: translate(-60%, 50%);
+    font-size: clamp(24px, 6vw, 80px); /* Tamanho responsivo do texto */
+    white-space: nowrap; /* Impede quebra de linha */
+    color: white;
+    cursor: default;
+    font-family: "Alumni Sans SC", sans-serif;
+    font-weight: 250;
+    text-align: center;
+}
+
+/* ============================== */
+/* BOTÃO DE CONFIGURAÇÕES FIXO */
+/* ============================== */
+/* Botão redondo fixo no canto inferior esquerdo da tela, com destaque e cursor de clique */
+.config {
+    position: fixed;
+    z-index: 3;
+    top: 87.5%;
+    left: 5%;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px; /* Deixa o botão arredondado */
+    color: rgb(14, 13, 13);
+    cursor: pointer;
+}
+
+/* Ícone dentro do botão, posicionado para ajustar e com animação de rotação infinita */
+.config > i {
+    position: absolute;
+    left: -4%;
+    top: -2%;
+    font-size: 43px;
+    animation: config-rolling 10s infinite;
+}
+
+/* ============================== */
+/* PAINEL CONFIGURAÇÕES (POP-UP) */
+/* ============================== */
+/* Caixa inicial invisível e estreita perto do botão, com fundo translúcido e efeito de desfoque */
+.pop-config {
+    position: fixed;
+    z-index: 1;
+    left: 4.5%;
+    top: 86.5%;
+    width: 0px;
+    height: 50px;
+    background-color: rgb(255, 255, 255);
+    backdrop-filter: blur(8px);
+    border-radius: 15px;
+    transition: all 0.5s ease-in-out; /* Suave abertura e fechamento */
+    opacity: 0%;
+}
+
+/* Quando ativo, aumenta a largura, aparece sombra para destacar e torna-se visível */
+.pop-config-on {
+    width: 200px;
+    box-shadow: 
+        rgba(0, 0, 0, 0.25) 0px 14px 28px, 
+        rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    opacity: 100%;
+    z-index: 1;
+}
+
+/* ============================== */
+/* SELETOR DE LÍNGUAS DENTRO DO POP-UP */
+/* ============================== */
+/* Barra colorida arredondada para selecionar idioma, com gradiente verde e vermelho */
+.pop-language {
+    
+    position: absolute;
+    left: 30%;
+    top: 20%;
+    width: 120px;
+    height: 30px;
+    background: linear-gradient(to right, white 50%, black 50%);
+    border: 3px solid black;
+    border-radius: 20px;
+    cursor: pointer;
+    /* Sombra para dar profundidade */
+    box-shadow: 
+        rgba(0, 0, 0, 0.19) 0px 10px 20px, 
+        rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+/* Texto dentro do seletor, posicionado para ajustar, com transição para movimento suave */
+.pop-language p {
+    position: absolute;
+    left: 10px;
+    top: 2px;
+    color: rgb(34, 33, 33);
+    transition: margin-left 0.4s ease-in-out, color 0.4s ease;
+    color: rgb(0, 0, 0);
+    font-size: 12px;
+}
+
+/* Estado ativado do idioma: o texto se move para indicar seleção */
+.language-on p {
+    margin-left: 52%;
+    color: white;
+}
+
+/* ============================== */
+/* SEÇÃO DE TIMES (LOGOS OU IMAGENS) */
+/* ============================== */
+/* Container flexível que centraliza e distribui os itens com espaçamento grande e quebra de linha */
+.times {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 160px;
+    width: 100%;
+    padding: 170px 20px 100px 20px; /* Espaçamento interno nas bordas superior, laterais e inferior */
+    background-color: #fff;
+}
+
+/* Imagens dos times: tamanho fixo e com efeito de zoom ao passar o mouse */
+.times img {
+    width: 200px;
+    height: 200px;
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.times img:hover {
+    transform: scale(1.3); /* Amplia a imagem suavemente */
+}
+
+/* ============================== */
+/* PAINEL DE HISTÓRIA (IMAGEM DE FUNDO COM TEXTO SOBREPOSTO) */
+/* ============================== */
+/* Container com tamanho fixo e escondendo o que ultrapassa os limites */
+.painel-historia {
+    position: relative;
+    width: 100%;
+    height: 1080px;
+    overflow: hidden;
+}
+
+/* Imagem de fundo que cobre toda a área do painel */
+.painel-historia img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Mantém proporção, cortando o que ultrapassar */
+}
+
+/* ============================== */
+/* CAIXA DE TEXTO SOBRE O PAINEL DE HISTÓRIA */
+/* ============================== */
+/* Caixa translúcida com fundo escurecido e efeito de desfoque, posicionado dentro do painel */
+.textbox01 {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 80%;
+    padding: 40px;
+    background-color: #141414b4; /* Preto transparente */
+    backdrop-filter: blur(8px);
+    color: white;
+    border-radius: 20px; /* Bordas arredondadas */
+}
+
+/* Título da caixa com espaçamento inferior */
+.textbox01 h2 {
+    padding-bottom: 28px;
+}
+
+/* Texto justificado, com fonte leve e tamanho responsivo */
+.textbox01 p {
+    text-align: justify;
+    font-family: "Alumni Sans SC", sans-serif;
+    font-weight: 300;
+    font-size: clamp(18px, 28px, 34px);
+}
+
+/* Menu-Jogos */
+
+.painel-jogos{
+    margin-top: 120px;
+    margin-bottom: 300px;
+}
+
+.painel-jogos .textbox02{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 30px;
+}
+
+.textbox02title{
+    font-size: x-large;
+}
+
+.col {
+    height: 80px;
+    background-color: rgba(233, 233, 233, 0.75);
+    margin: 10px;
+    border: 10px;
+    position: relative;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.5s ease;
+}
+
+.col:hover {
+  background-color: #b6b6b6;
+}
+
+/* .container.text-center{
+    display: grid;
+    grid-template-areas:
+    "a1 b1 c1"
+    "a2 b2 c2";
+} */
+
+.first-img{
+    width: 50px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-330%, -50%);
+}
+
+.second-img{
+    width: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-430%, -50%);
+}
+
+.third-img{
+    width: 50px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-75%, -50%);
+}
+
+.text-column{
+    font-size: smaller;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(150%, -50%);
+}
+
+footer{
+    position: relative;
+    cursor: default;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 5vw;
+    max-height: 200px;
+    background-color: rgb(247, 244, 244);
+    transition: height 0.6s ease-in-out;
+}
+
+footer .icons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+footer .icons i{
+    font-size: clamp(1.0em, 1em, 1.2em);
+    transition: transform 0.2s ease-in-out
+}
+
+footer .icons i:hover{
+    transform: scale(1.3);
+}
+
+.bottom-bar{
+    position: absolute;
+    top: 100%;
+    padding-bottom: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 20%;
+    background-color: black;
+    color: white;
+    font-size: 80%;
+}
+
+.bottom-bar p{
+    position: absolute;
+    left: 50%;
+    top: 15%;
+    transform: translateX(-50%);
+    text-wrap: nowrap;
+}
+
+
+/* ============================== */
+/* MEDIA QUERIES - ADAPTAÇÕES PARA TELAS MENORES */
+/* ============================== */
+
+/* Para telas até 1500px de largura: reduz espaçamento lateral do header e ajusta posição do texto da imagem */
+@media (max-width: 1600px) {
+
+    .img1 p {
+        transform: translate(-60%, 20%);
+    }
+
+    .textbox01 {
+        top: -0%;
+        width: 90%;
+        transform: translateX(-5%);
+    }    
+}
+
+/* Para telas até 1366px: ajusta posição e tamanho do texto no painel história */
+@media (max-width: 1366px) {
+    .textbox01 p {
+        font-size: 24px;
+        font-weight: 400;
+
+    }
+
+    .textbox01{
+        top: 10%;
+    }
+    .first-img{
+        transform: translate(-230%, -50%);
+    }
+
+    .second-img{
+        transform: translate(-260%, -50%);
+    }
+
+    .third-img{
+        transform: translate(-40%, -50%);
+    }
+
+    .text-column{
+    transform: translate(70%, -50%);
+    }
+}
+
+
+/* Para telas até 1100px: posiciona texto mais para cima e deixa texto mais leve */
+@media (max-width: 1100px) {
+
+     .textbox01 {
+        top: -0%;
+    }
+    .textbox01 p {
+        font-size: clamp(12px, 22px, 28px);
+        font-weight: 300;
+    } 
+
+    .col{
+        width: 300px;
+    }
+
+    .first-img{
+        transform: translate(-200%, -50%);
+    }
+
+    .second-img{
+        transform: translate(-220%, -50%);
+    }
+
+    .third-img{
+        transform: translate(-40%, -50%);
+    }
+
+    .text-column{
+    transform: translate(55%, -50%);
+    font-size: 12px;
+    }
+}
+
+    
+
+
+/* Para telas até 900px: ajustes na posição do texto na imagem, menu com espaçamento menor e imagens dos times menores */
+@media (max-width: 900px) {
+    .img1 p {
+        left: 60%;
+        transform: translate(-50%, 0%);
+        font-size: clamp(18px, 5vw, 40px);
+    }
+
+    #mundial{
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        left: 50%;
+        top: 4%;
+    }
+
+    .times {
+        gap: 30px;
+    }
+    .times img {
+        width: 100px;
+        height: 100px;
+    }
+    .textbox01 {
+        top: -2%;
+    }
+    .textbox01 p {
+        /* font-size: clamp(12px, 19px, 28px); */
+        font-weight: 500;
+    }
+
+        header{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        gap: 40px;
+    }
+
+    header h1{
+        width: 50vw;
+        font-size: 22px;
+    }
+
+    ul{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 35px;
+    }
+
+     li{
+        padding:10px;
+        background-color: rgb(238, 238, 238); 
+        width: 100px;
+        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    }
+
+    .col{
+        width: 300px;
+    }
+
+    .first-img{
+        transform: translate(-200%, -50%);
+    }
+
+    .second-img{
+        transform: translate(-210%, -50%);
+    }
+
+    .third-img{
+        transform: translate(-25%, -50%);
+    }
+
+    .text-column{
+        transform: translate(70%, -50%);
+        font-size: 12px;
+    }    
+
+    nav{
+        display: none;
+        transition: opacity 0.3s ease;
+    }
+
+    header i{
+        opacity: 1;
+        display: block;
+        font-size: 200%;
+        width: 30px;
+        height: 20px;
+    }
+
+    .nav-open{
+        display: block;
+        opacity: 1;
+        transform: translateX(-10%);
+    }
+
+    .submenu{
+        left: 50%;
+        transform: translateX(-51%);
+    
+    
+    }
+}
+
+@media only screen and (max-width:770px){
+
+    .textbox01{
+        width: 100%;
+        left: 5%;
+        border-radius: 0px;
+        background-color: rgba(0, 0, 0, 0.863);
+;
+    }
+
+    .painel-historia{
+        overflow: scroll;
+    }
+
+    .textbox01 p {
+        font-size: clamp(1rem, 4vw, 1.5rem);
+        font-weight: 500;
+    }
+
+    .col{
+        width: 250px;
+    }
+
+    .first-img{
+        width: 30px;
+        transform: translate(-200%, -50%);
+    }
+
+    .second-img{
+        display: none;
+    }
+
+    .third-img{
+        width: 30px;
+        transform: translate(-65%, -50%);
+    }
+
+    .text-column{
+    transform: translate(30%, -50%);
+    font-size: 11px;
+    }
+
+    footer{
+        height: 30vw;
+    }
+
+    footer .icons i{
+        font-size: 200%;
+    }
+}
+
+/* Para telas até 600px: header e menu empilhados verticalmente, texto centralizado, fontes menores */
+@media (max-width: 600px) {
+    .img1 p {
+        left: 50%;
+        transform: translate(-50%, 0%);
+        font-size: clamp(16px, 6vw, 32px);
+        text-align: center;
+    }
+
+    .painel-historia img{
+        height: 2000px;
+    }
+
+    /* .textbox01 {
+        top: 12%;
+    }*/
+
+    .textbox01 p {
+        font-size: 30px;
+        font-weight: 250;
+    } 
+
+    .textbox01 h2{
+        text-align: center;
+    }
+}
+
+@media only screen and (max-width:550px){
+    .col{
+        width: 250px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .row{
+        display: grid;
+    }
+
+    .w-100{
+        visibility: hidden;
+    }
+
+    .first-img{
+        width: 30px;
+        transform: translate(-200%, -50%);
+    }
+
+    .second-img{
+        display: none;
+    }
+
+    .third-img{
+        width: 30px;
+        transform: translate(-65%, -50%);
+    }
+
+    .text-column{
+    transform: translate(35%, -50%);
+    }
+}
+
+
+
+/* ============================== */
+/* ANIMAÇÃO DO ÍCONE DE CONFIGURAÇÕES */
+/* ============================== */
+/* Roda o ícone 2 voltas completas em 10 segundos, repetindo infinitamente */
+@keyframes config-rolling {
+    100% {
+        transform: rotate(720deg);
+    }
+}
