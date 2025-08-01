@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADM</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="shortcut icon" href="../assets/favicon_io/faviconsigma.png" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ancizar+Serif:ital,wght@0,300..900;1,300..900&family=Dancing+Script:wght@400..700&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Nanum+Myeongjo&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poetsen+One&family=Special+Gothic+Expanded+One&family=Zen+Dots&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alumni+Sans+SC:ital,wght@0,100..900;1,100..900&family=Special+Gothic+Expanded+One&display=swap" rel="stylesheet" />
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="admin.css">     
+</head>
+<body>
+
+    <video src="assets/vid3.mp4" autoplay loop muted></video>
+        <div class="blur" id="blur"></div>
+<img src="" alt="">
+        
+    <header>
+        <h1 id="titulo">MERGULHO NA HISTÓRIA E GLÓRIA</h1>
+        <i class='bx bxs-customize' id="pop-nav"></i>        
+        <nav id="nav">
+            <ul>
+                <li id="inicio" class="menuhover"><a href="../index.html" id="link-inicio">Início</a></li>
+
+                <li id="clubes" class="dropdown">
+                    <a href="../index.html#times" id="link-clubes">Clubes</a>
+                    <ul class="submenu" id="submenu">
+                        <li><a href="../clubes/Madrid/index.html">AT Madrid</a></li>
+                        <li><a href="../clubes/Botafogo/index.html">Botafogo</a></li>
+                        <li><a href="../clubes/Paris/index.html">Paris Saint Germain</a></li>
+                        <li><a href="../clubes/Seattle/index.html">Seattle</a></li>
+                    </ul>
+                </li>
+
+                <li id="etica" class="menuhover"><a href="../etica_campeonato/index.html" id="link-etica">Ética</a></li>
+                <li id="quemsomos" class="menuhover"><a href="../sobre_nos/index.html" id="link-quemsomos">Quem somos</a></li>
+                <li id="faleconosco" class="menuhover"><a href="../faleconosco/index.html" id="link-faleconosco">Fale Conosco</a></li>
+            </ul>
+        </nav>
+    </header>
+
+
+<main>
+    <article id="article">
+        <div class="bar">
+            <div class="close"></div>
+            <div class="minimize"></div>
+            <div class="open"></div>
+        </div>
+        <div class="title1">
+            <h2>MENSAGENS</h2>
+        </div>
+<!-- MENSAGENS -->
+
+<div class="conteudo-administrador">
+    <div class="containerContato">
+        <section class="secao-mensagem">
+            <h3>Contatos:</h3>
+            <div id="lista-contatos">
+                <p class="sem-mensagem">Nenhum novo contato</p>
+            </div>
+                <button id="limpaTudoContatos" class="botao-limpa">Limpar Todos os Contatos</button>
+                <p id="mensagemAdminContatos" class="mensagemAdminContatos"></p>
+        </section>
+    </div>
+    <div class="containerSugest">
+        <section class="secao-mensagem">
+            <h3>Sugestões:</h3>
+            <div id="lista-sugestoes">
+                <p class="sem-mensagem">Nenhuma nova sugestão</p>
+            </div>
+                <button id="limpaTudoSugest" class="botao-limpa">Limpar Todas as Sugestões</button>
+                <p id="mensagemAdminSugest" class="mensagemAdminSugest"></p>
+        </section>
+    </div>
+</div>
+
+
+
+<!-- MENSAGENS -->
+
+        <div class="topbar">
+            <div class="function1">
+                <i class='bx bx-chevron-left'></i>
+                <i class='bx bx-chevron-right' ></i>
+                <i class='bx bx-reset' ></i>
+            </div>
+
+            <div class="searchbar">
+                <input type="text" placeholder="Mergulho na História e Glória / Fale Conosco">
+                <i class='bx bxs-bookmark-star' ></i>
+            </div>
+
+            <div class="function2">
+                <i class='bx bxs-cloud-download' ></i>
+                <i class='bx bx-menu'></i>
+            </div>
+        </div>
+
+
+    </article>
+</main>
+
+<script src="admin.js"></script>    
+<!-- <footer>
+    <div class="icons">
+        <a href="#"><i class='bx bxl-facebook-circle'></i></a>
+        <a href="#"><i class='bx bxl-instagram-alt' ></i></a>
+        <a href="#"><i class='bx bxl-twitter'></i></a>
+        <a href="#"><i class='bx bxl-google-plus'></i></a>
+        <a href="#"><i class='bx bxl-youtube' ></i></a>
+    </div>
+     <div class="bottom-bar"> <p>Copyright © 2025: Designed by Sigma </p> </div>
+</footer> -->
+
+
+</body>
+</html>

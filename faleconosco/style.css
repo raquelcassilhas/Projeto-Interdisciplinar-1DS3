@@ -1,0 +1,776 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.config {
+    position: fixed;
+    z-index: 3;
+    top: 90.5%;
+    left: 5%;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px; /* Deixa o botão arredondado */
+    color: rgb(14, 13, 13);
+    cursor: pointer;
+}
+
+
+header i{
+    opacity: 0;
+}
+/* Ícone dentro do botão, posicionado para ajustar e com animação de rotação infinita */
+.config > i {
+    position: absolute;
+    left: -4%;
+    top: -2%;
+    font-size: 43px;
+    animation: config-rolling 10s infinite;
+}
+
+/* ============================== */
+/* PAINEL CONFIGURAÇÕES (POP-UP) */
+/* ============================== */
+/* Caixa inicial invisível e estreita perto do botão, com fundo translúcido e efeito de desfoque */
+.pop-config {
+    position: fixed;
+    z-index: 1;
+    left: 4.5%;
+    top: 90%;
+    width: 0px;
+    height: 50px;
+    background-color: rgb(255, 255, 255);
+    backdrop-filter: blur(8px);
+    border-radius: 15px;
+    transition: all 0.5s ease-in-out; /* Suave abertura e fechamento */
+    opacity: 0%;
+}
+
+/* Quando ativo, aumenta a largura, aparece sombra para destacar e torna-se visível */
+.pop-config-on {
+    width: 200px;
+    box-shadow: 
+        rgba(0, 0, 0, 0.25) 0px 14px 28px, 
+        rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    opacity: 100%;
+    z-index: 1;
+}
+
+/* ============================== */
+/* SELETOR DE LÍNGUAS DENTRO DO POP-UP */
+/* ============================== */
+/* Barra colorida arredondada para selecionar idioma, com gradiente verde e vermelho */
+.pop-language {
+    position: absolute;
+    left: 30%;
+    top: 20%;
+    width: 120px;
+    height: 30px;
+    background: linear-gradient(to right, white 50%, black 50%);
+    border: 3px solid black;
+    border-radius: 20px;
+    cursor: pointer;
+    /* Sombra para dar profundidade */
+    box-shadow: 
+        rgba(0, 0, 0, 0.19) 0px 10px 20px, 
+        rgba(0, 0, 0, 0.23) 0px 6px 6px;
+            font-family: "Special Gothic Expanded One", sans-serif;
+    transition: color 0.3s ease;
+}
+/* Texto dentro do seletor, posicionado para ajustar, com transição para movimento suave */
+.pop-language p {
+    position: absolute;
+    left: 10px;
+    top: 3px;
+    color: rgb(34, 33, 33);
+    transition: margin-left 0.4s ease-in-out, color 0.4s ease;
+    color: rgb(0, 0, 0);
+    font-size: 12px;
+}
+
+/* Estado ativado do idioma: o texto se move para indicar seleção */
+.language-on p {
+    margin-left: 52%;
+    color: white;
+}
+
+body{
+    background-color: black;
+}
+
+video{
+    position: fixed;
+    z-index: -5;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 120vh;
+    object-fit: cover;
+}
+
+.blur{
+    position: fixed;
+    z-index: -4;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 120vh;
+    object-fit: cover;
+    background-color: rgba(112, 88, 27, 0.37);
+    backdrop-filter: blur(4px);
+    transition: background-color 0.5s ease;
+}
+
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 150px;
+    background-color: white;
+    background-position: 50% 2dvh;
+    color: rgb(0, 0, 0);
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    z-index: 2; 
+}
+
+
+/* Título do header: ocupa até 400px, tamanho de fonte responsivo e peso médio, cursor padrão */
+header h1 {
+    width: 100%;
+    max-width: 400px;
+    font-size: clamp(20px, 1.5vw, 28px); /* Fonte que se adapta à largura da tela */
+    font-weight: 600;
+    cursor: default;
+    font-family: "Special Gothic Expanded One", sans-serif;
+}
+
+/* ============================== */
+/* MENU DE NAVEGAÇÃO */
+/* ============================== */
+/* Lista horizontal com espaçamento entre os itens, sem marcadores padrão */
+header nav ul {
+    display: flex;
+    gap: 40px;
+    flex-wrap: nowrap;
+    list-style: none;
+}
+
+/* Itens do menu: cursor muda para indicar que são clicáveis, fonte específica, tamanho responsivo */
+
+a{
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out; /* Animação suave ao passar o mouse */
+    font-family: "Alumni Sans SC", sans-serif;
+    font-size: clamp(18px, 2.0vw, 32px);
+    font-weight: 400;
+    text-decoration: none;
+    color: black;
+}
+
+/* Efeito ao passar o mouse: aumenta o tamanho e sublinha o texto */
+.menuhover:hover {
+    transform: scale(1.2);
+    transition-duration: 0.2s;
+    /* text-decoration: underline; */
+}
+
+
+/* Submenu oculto por padrão */
+.submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: -80%;
+    min-width: 160px;
+    z-index: 3; /* z-index definido como maior que 2 */
+    border-radius: 4px;
+}
+
+
+/* Mostrar submenu ao passar o mouse no item pai */
+#clubes:hover .submenu {
+    display: block;
+}
+
+/* Estilo dos itens do submenu */
+.submenu li {
+    list-style: none;
+}
+
+.submenu li a {
+    text-align: center;
+    display: block;
+    padding: 5px 10px;
+    color: rgb(28, 27, 27);
+    text-decoration: none;
+    background-color: #ffffff;
+    font-size: 16px;
+}
+
+/* Efeito hover nos links do submenu */
+.submenu li a:hover {
+    background-color: rgba(233, 233, 233);
+}
+
+
+
+/* ______________________HEADER________________________________________________________________*/
+/* ____________________________________________________________________________________________*/ 
+/* ________________SECTION>ARTICLE>DIV_________________________________________________________*/ 
+
+
+
+article{
+    position: relative;
+    background-color: #0d0d0dc0;
+    backdrop-filter: blur(12px);
+    border-top: 30px solid rgb(206, 206, 206);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    width: 90%;
+    height: auto 80px;
+    margin: 80px auto;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    transition: background-color 0.5s ease;
+    font-family: "Playfair Display", serif;
+}
+
+    .article2{
+        background-color: #494747c0;
+        border-color: #1c1c1c;
+        transition: background-color 0.5s ease;
+    }
+
+        .article2 .topbar{
+            background-color: #333;
+            color: white;
+        }
+
+        .article2 .searchbar input[type="text"]{
+            background-color: white;
+            color: #171616;
+        }
+
+        .article2 .function2 i{
+            color: white;
+        }
+
+.blur2{
+    background-color: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(8px);
+}
+
+.custom{
+    position: relative;
+    z-index: 1;
+    left: 8%;
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+    text-align: center;
+    transition: transform 1s ease;
+}
+
+    .custom i{
+        cursor: pointer;
+        font-size: 46px;
+        text-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    }
+
+    .custom2{
+        transform: rotate(200deg);
+    }
+
+    .options{
+        position: fixed;
+        z-index: -1;
+        display: flex;
+        width: 40px;
+        height: 40px;
+        left: 10%;
+        top: 26%;
+        border-radius: 10px;
+        transition: padding-left 1s ease;
+    }
+
+        .optionsON{
+            position: relative;
+            z-index: -1;
+            backdrop-filter: blur(8px);
+            box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+            left: 10%;
+            transform: translate(50, 50%);
+            padding-left: 300px;
+        }
+
+
+
+
+.bar{
+    position: absolute;
+    top: -18px;
+    left: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.open{
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(circle, rgb(46, 112, 30), rgb(46, 154, 27));
+    border-radius: 20px;
+    transition: transform 0.5s ease;
+    cursor: pointer;
+}
+
+.minimize{
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(circle, rgb(209, 149, 27), rgb(223, 137, 52));
+    border-radius: 20px;
+    transition: transform 0.5s ease;
+    cursor: pointer;
+}
+
+.close{
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(circle, rgb(229, 39, 39), rgb(174, 18, 18));
+    border-radius: 20px;
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.close:hover, .minimize:hover, .open:hover{
+    transform: scale(1.5);
+} 
+
+.conteudo{
+    font-family: "Alumni Sans SC", sans-serif;
+    color: rgb(255, 255, 255);
+    text-align: left;
+}
+
+.title1{
+    margin-top: 100px;
+    margin-bottom: 70px;
+    text-align: center;
+    font-size: clamp(75px, 28px, 34px);
+}
+
+.title2{
+    padding-left: 50px;
+    padding-right: 50px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: clamp(30px, 28px, 34px);
+}
+
+.textblock{
+    padding-left: 50px;
+    padding-right: 50px;
+    font-size: clamp(18px, 28px, 34px);
+}
+
+.topbar{
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 30px;
+    background-color: rgb(255, 255, 255);
+}
+
+    .function1{
+        display: flex;
+        gap: 4px;
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        .searchbar{
+            position: relative;
+            width: 100%;
+            height: 30px;
+            transition: background-color 0.5s ease, color 0.5s ease;
+            }
+
+            .searchbar input[type="text"]{
+                font-family: "Merriweather", serif;
+                position: absolute;
+                color: white;
+                width: 60%;
+                height: 18px;
+                top: 19%;
+                left: 20%;
+                background-color: #333;
+                padding-left: 10px;
+                border-radius: 20px;
+                border: 0px;
+                outline: none;
+                cursor: pointer;
+                transition: background-color 0.5s ease, color 0.5s ease;
+                }
+
+            .searchbar i{
+                position: absolute;
+                color: rgb(255, 48, 48);
+                left: 75%;
+                bottom: 9px;
+            }
+
+            .function2{
+                width: 50px;
+                display: flex;
+                gap:5px;
+                position: relative;
+                top: -35px;
+                left: 95%;
+                transform: translate(-70%, 50%);
+                
+            }
+
+            .function2 i{
+                color: rgba(29, 28, 28, 0.844);
+                font-size: 20px;
+                cursor: pointer;
+                transition: background-color 0.5s ease, color 0.5s ease;
+            }
+
+h2{
+    margin-top: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-family: "Alumni Sans SC", sans-serif;
+    font-size: clamp(75px, 28px, 34px);
+    color: rgb(255, 255, 255);
+}
+
+.bt-ver-msg{
+    margin-top: 75px;
+    padding-right: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.formSugest {
+    color: white;
+    width:50%;
+    display: flex;
+    flex-direction: column;
+    /* background-color: rgba(0, 0, 0, 0.349); */
+    margin: 0 auto;
+}
+
+.formContato {
+    /* color: white; */
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    /* background-color: rgba(0, 0, 0, 0.349); */
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 50px;
+}
+
+.form-label{
+    font-family: "Alumni Sans SC", sans-serif;
+    font-size: 30px;
+    color: rgb(255, 255, 255);
+}
+
+.form-control{
+    font-family: "Alumni Sans SC", sans-serif;
+    font-size: 30px;
+}
+
+.form-title{
+    margin-top: 20px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-family: "Alumni Sans SC", sans-serif;
+    font-size: clamp(75px, 28px, 34px);
+    color: rgb(255, 255, 255);
+}
+
+.btn.btn-dark{
+    font-family: "Alumni Sans SC", sans-serif;
+    font-size: clamp(20px, 28px, 34px);
+    align-items: center;
+}
+
+
+/* Estilo para Mensagem de Sucesso */
+.form-message.success {
+    background-color: #d4edda; /* Tom verde claro para sucesso */
+    color: #155724;            /* Tom verde escuro para texto */
+    border: 1px solid #c3e6cb; /* Borda verde */
+}
+
+/* Estilo para Mensagem de Erro */
+.form-message.error {
+    background-color: #f8d7da; /* Tom vermelho claro para erro */
+    color: #721c24;            /* Tom vermelho escuro para texto */
+    border: 1px solid #f5c6cb; /* Borda vermelha */
+}
+
+footer{
+    position: relative;
+    cursor: default;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 5vw;
+    max-height: 200px;
+    background-color: rgb(247, 244, 244);
+    transition: height 0.6s ease-in-out;
+    font-family: "Special Gothic Expanded One", sans-serif;
+}
+
+footer .icons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+footer .icons i{
+    font-size: clamp(1.0em, 1em, 1.2em);
+    transition: transform 0.2s ease-in-out
+}
+
+footer .icons i:hover{
+    transform: scale(1.3);
+}
+
+.bottom-bar{
+    position: absolute;
+    top: 100%;
+    padding-bottom: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 20%;
+    background-color: black;
+    color: white;
+    font-size: 80%;
+}
+
+.bottom-bar p{
+    position: absolute;
+    left: 50%;
+    top: 15%;
+    transform: translateX(-50%);
+    text-wrap: nowrap;
+}
+
+/*_________________MEDIA________________________________________________________________________*/
+
+@media (max-width: 900px) {
+
+      header{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        gap: 40px;
+    }
+
+    header h1{
+        width: 50vw;
+        font-size: 22px;
+    }
+
+    ul{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 35px;
+    }
+
+     header li{
+        padding:10px;
+        background-color: rgb(238, 238, 238); 
+        width: 100px;
+        box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    }
+
+    article {
+        height: auto;
+        padding-bottom: 50px;
+    }
+
+    .title1 {
+        font-size: 16px;
+        padding: 20px;
+        margin-top: 50px;
+    }
+
+    .title2 {
+        font-size: 10px;
+        padding: 20px;
+    }
+
+    .function2 {
+        top: -28px;
+        left: 90%;
+        transform: translate(-90%, 50%);
+    }
+
+    .searchbar input[type="text"] {
+        width: 80%;
+        left: 10%;
+        font-size: 12px;
+    }
+
+    .form-control, .form-label{
+        font-size: 25px;
+    }
+
+        nav{
+        display: none;
+        transition: opacity 0.3s ease;
+    }
+
+    header i{
+        opacity: 1;
+        display: block;
+        font-size: 200%;
+        width: 30px;
+        height: 20px;
+    }
+
+    .nav-open{
+        display: block;
+        opacity: 1;
+        transform: translateX(-10%);
+    }
+
+    .submenu{
+        left: 50%;
+        transform: translateX(-51%);
+    }
+
+    nav{
+        display: none;
+        transition: opacity 0.3s ease;
+    }
+
+    header i{
+        opacity: 1;
+        display: block;
+        font-size: 200%;
+        width: 30px;
+        height: 20px;
+    }
+
+    .nav-open{
+        display: block;
+        opacity: 1;
+        transform: translateX(-10%);
+    }
+
+    .submenu{
+        left: 50%;
+        transform: translateX(-51%);
+    
+    
+    }    
+
+    footer{
+        height: 30vw;
+    }
+
+    footer .icons i{
+        font-size: 200%;
+    }    
+}
+
+@media (max-width: 768px) {
+
+    .custom {
+        left: 5%;
+        width: 30px;
+        height: 30px;
+    }
+
+    .custom i {
+        font-size: 36px;
+    }
+
+    .options {
+        left: 6%;
+        top: 30%;
+    }
+
+
+    article {
+        width: 95%;
+        margin: 60px auto;
+    }
+
+    .searchbar input[type="text"] {
+        font-size: 10px;
+        height: 16px;
+    }
+
+    .searchbar i {
+        left: 85%;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .custom {
+        left: 4%;
+        width: 28px;
+        height: 28px;
+    }
+
+    .custom i {
+        font-size: 28px;
+    }
+
+    .title1 {
+        font-size: 14px;
+    }
+
+    .title2 {
+        font-size: 10px;
+    }
+
+    .bar {
+        top: -14px;
+        left: 6px;
+    }
+
+    .topbar {
+        height: 25px;
+    }
+
+    .function2 {
+        top: -25px;
+        left: 88%;
+    }
+
+    .searchbar input[type="text"] {
+        font-size: 9px;
+        height: 14px;
+        left: 10%;
+        width: 80%;
+    }
+
+    .searchbar i {
+        left: 88%;
+        bottom: 6px;
+    }
+}

@@ -1,0 +1,666 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: black;
+}
+
+video{
+    position: fixed;
+    z-index: -5;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 120vh;
+    object-fit: cover;
+}
+
+.blur{
+    position: fixed;
+    z-index: -4;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 120vh;
+    object-fit: cover;
+    background-color: rgba(112, 88, 27, 0.37);
+    backdrop-filter: blur(4px);
+    transition: background-color 0.5s ease;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 150px;
+    background-color: white;
+    background-position: 50% 2dvh;
+    color: rgb(0, 0, 0);
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    z-index: 2; 
+}
+
+header i{
+    opacity: 0;
+}
+
+/* Título do header: ocupa até 400px, tamanho de fonte responsivo e peso médio, cursor padrão */
+header h1 {
+    width: 100%;
+    max-width: 400px;
+    font-size: clamp(20px, 1.5vw, 28px); /* Fonte que se adapta à largura da tela */
+    font-weight: 600;
+    cursor: default;
+    font-family: "Special Gothic Expanded One", sans-serif;
+    
+}
+
+/* ============================== */
+/* MENU DE NAVEGAÇÃO */
+/* ============================== */
+/* Lista horizontal com espaçamento entre os itens, sem marcadores padrão */
+nav ul {
+    display: flex;
+    gap: 40px;
+    flex-wrap: nowrap;
+    list-style: none;
+}
+
+/* Itens do menu: cursor muda para indicar que são clicáveis, fonte específica, tamanho responsivo */
+
+a{
+        cursor: pointer;
+    transition: transform 0.2s ease-in-out; /* Animação suave ao passar o mouse */
+    font-family: "Alumni Sans SC", sans-serif;
+    font-size: clamp(18px, 2.0vw, 32px);
+    font-weight: 400;
+    text-decoration: none;
+    color: black;;
+}
+
+/* Efeito ao passar o mouse: aumenta o tamanho e sublinha o texto */
+header li:hover {
+    transform: scale(1.0);
+    /* text-decoration: underline; */
+}
+
+/* Efeito ao passar o mouse: aumenta o tamanho e sublinha o texto */
+.menuhover:hover {
+    transform: scale(1.2);
+    transition-duration: 0.2s;
+    /* text-decoration: underline; */
+}
+
+
+/* Submenu oculto por padrão */
+.submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: -80%;
+    min-width: 160px;
+    z-index: 3; /* z-index definido como maior que 2 */
+    border-radius: 4px;
+}
+
+
+/* Mostrar submenu ao passar o mouse no item pai */
+#clubes:hover .submenu {
+    display: block;
+}
+
+/* Estilo dos itens do submenu */
+.submenu li {
+    list-style: none;
+}
+
+.submenu li a {
+    text-align: center;
+    display: block;
+    padding: 5px 10px;
+    color: rgb(28, 27, 27);
+    text-decoration: none;
+    background-color: #ffffff;
+    font-size: 16px;
+}
+
+/* Efeito hover nos links do submenu */
+.submenu li a:hover {
+    background-color: rgba(233, 233, 233);
+}
+
+
+
+
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.secao-mensagem {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 30px;
+    margin: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    border: 1px solid gray;
+}
+
+/* #lista-mensagens {
+    margin-bottom: 20px;
+} */
+
+.sem-mensagens {
+    text-align: center;
+    color: black;
+    align-items: center;
+    font-style: italic;
+    padding: 20px;
+}
+
+/* MESSAGE ITEM*/
+
+.itemMensagemContatos, .itemMensagemSugest {
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex; /* Usamos flexbox para alinhar conteúdo e botão */
+    flex-direction: column;
+    gap: 10px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.itemMensagemContatos:hover, .itemMensagemSugest:hover {
+    background-color: #f0f0f0; /* Levemente mais escuro no hover */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.itemMensagemContatos strong, .itemMensagemSugest strong {
+    color: gray;
+}
+
+.itemMensagemContatos .message-header, .itemMensagemSugest .message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Permite quebrar linha em telas pequenas */
+    gap: 10px;
+}
+
+.itemMensagemContatos .message-info, .itemMensagemSugest .message-info {
+    flex-grow: 1; /* Permite que o info ocupe o espaço restante */
+}
+
+.itemMensagemContatos .message-date, .itemMensagemSugest .message-date {
+    font-size: 0.85em;
+    color: black;
+}
+
+.itemMensagemContatos .message-body, .itemMensagemSugest .message-body {
+    white-space: pre-wrap; /* Preserva quebras de linha e espaços do textarea */
+    word-wrap: break-word; /* Quebra palavras longas */
+    margin-top: 10px;
+    border-top: 1px dashed gray; /* Separador sutil */
+    padding-top: 10px;
+}
+
+
+.itemMensagemContatos .delete-button, .itemMensagemSugest .delete-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    align-self: flex-end; /* Alinha o botão ao final do item flex */
+    min-width: 80px; /* Garante largura mínima para o botão */
+}
+
+.itemMensagemContatos .delete-button:hover, .itemMensagemSugest .delete-button:hover {
+    background-color: #c82333; /* Tom mais escuro de vermelho no hover */
+    transform: scale(1.03);
+}
+
+.botao-limpa {
+    background-color: gray; /* Um cinza mais escuro para o botão de limpar tudo */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 20px; /* Espaçamento acima do botão */
+    display: block; /* Ocupa a largura total */
+    width: 100%; /* Ocupa a largura total */
+    text-align: center;
+}
+
+.botao-limpa:hover {
+    background-color: black;
+    transform: scale(1.03);
+}
+
+.mensagemAdminContatos, .mensagemAdminSugest {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: 700;
+    text-align: center;
+    display: none; /* Escondido por padrão, mostrado pelo JS */
+}
+
+.mensagemAdminContatos.success, .mensagemAdminSugest.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.mensagemAdminContatos.error, .mensagemAdminSugest.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.secao-mensagem{
+    font-family: "Alumni Sans SC", sans-serif;
+    color: black;
+    font-size: clamp(25px, 20px, 20px);
+}
+
+
+h2{
+    margin-top: 20px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-family: "Alumni Sans SC", sans-serif;
+    font-size: clamp(75px, 28px, 34px);
+    color: rgb(255, 255, 255);
+}
+
+h3 {
+    font-family: "Alumni Sans SC", sans-serif;
+    font-size: clamp(40px, 28px, 34px);
+    margin-bottom: 10px;
+}
+
+button#limpaTudoSugest, .delete-button, button#limpaTudoContatos {
+    font-family: "Alumni Sans SC", sans-serif;
+}
+
+
+/* ______________________HEADER________________________________________________________________*/
+/* ____________________________________________________________________________________________*/ 
+/* ________________SECTION>ARTICLE>DIV_________________________________________________________*/ 
+
+
+
+article{
+    position: relative;
+    background-color: #0d0d0dc0;
+    backdrop-filter: blur(12px);
+    border-top: 30px solid rgb(206, 206, 206);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    width: 90%;
+    height: 100vh;
+    margin: 80px auto;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    transition: background-color 0.5s ease;
+    font-family: "Playfair Display", serif;
+}
+
+    .article2{
+        background-color: #494747c0;
+        border-color: #1c1c1c;
+        transition: background-color 0.5s ease;
+    }
+
+        .article2 .topbar{
+            background-color: #333;
+            color: white;
+        }
+
+        .article2 .searchbar input[type="text"]{
+            background-color: white;
+            color: #171616;
+        }
+
+        .article2 .function2 i{
+            color: white;
+        }
+
+.blur2{
+    background-color: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(8px);
+}
+
+.custom{
+    position: relative;
+    z-index: 1;
+    left: 8%;
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+    text-align: center;
+    transition: transform 1s ease;
+}
+
+    .custom i{
+        cursor: pointer;
+        font-size: 46px;
+        text-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+    }
+
+    .custom2{
+        transform: rotate(200deg);
+    }
+
+    .options{
+        position: fixed;
+        z-index: -1;
+        display: flex;
+        width: 40px;
+        height: 40px;
+        left: 10%;
+        top: 26%;
+        border-radius: 10px;
+        transition: padding-left 1s ease;
+    }
+
+        .optionsON{
+            position: relative;
+            z-index: -1;
+            backdrop-filter: blur(8px);
+            box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+            left: 10%;
+            transform: translate(50, 50%);
+            padding-left: 300px;
+        }
+
+
+
+
+.bar{
+    position: absolute;
+    top: -18px;
+    left: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.open{
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(circle, rgb(46, 112, 30), rgb(46, 154, 27));
+    border-radius: 20px;
+    transition: transform 0.5s ease;
+    cursor: pointer;
+}
+
+.minimize{
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(circle, rgb(209, 149, 27), rgb(223, 137, 52));
+    border-radius: 20px;
+    transition: transform 0.5s ease;
+    cursor: pointer;
+}
+
+.close{
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(circle, rgb(229, 39, 39), rgb(174, 18, 18));
+    border-radius: 20px;
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.close:hover, .minimize:hover, .open:hover{
+    transform: scale(1.5);
+} 
+
+.title1{
+    font-size: 12px;
+    color: rgb(255, 255, 255);
+    padding: 50px;
+    text-align: center;
+
+}
+
+.topbar{
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 30px;
+    background-color: rgb(255, 255, 255);
+}
+
+    .function1{
+        display: flex;
+        gap: 4px;
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        .searchbar{
+            position: relative;
+            width: 100%;
+            height: 30px;
+            transition: background-color 0.5s ease, color 0.5s ease;
+            }
+
+            .searchbar input[type="text"]{
+                font-family: "Merriweather", serif;
+                position: absolute;
+                color: white;
+                width: 60%;
+                height: 18px;
+                top: 19%;
+                left: 20%;
+                background-color: #333;
+                padding-left: 10px;
+                border-radius: 20px;
+                border: 0px;
+                outline: none;
+                cursor: pointer;
+                transition: background-color 0.5s ease, color 0.5s ease;
+                }
+
+            .searchbar i{
+                position: absolute;
+                color: rgb(255, 48, 48);
+                left: 75%;
+                bottom: 9px;
+            }
+
+            .function2{
+                width: 50px;
+                display: flex;
+                gap:5px;
+                position: relative;
+                top: -35px;
+                left: 95%;
+                transform: translate(-70%, 50%);
+                
+            }
+
+            .function2 i{
+                color: rgba(29, 28, 28, 0.844);
+                font-size: 20px;
+                cursor: pointer;
+                transition: background-color 0.5s ease, color 0.5s ease;
+            }
+
+
+footer{
+    position: relative;
+    cursor: default;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 5vw;
+    max-height: 200px;
+    background-color: rgb(247, 244, 244);
+    transition: height 0.6s ease-in-out;
+}
+
+footer .icons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+footer .icons i{
+    font-size: clamp(1.0em, 1em, 1.2em);
+    transition: transform 0.2s ease-in-out
+}
+
+footer .icons i:hover{
+    transform: scale(1.3);
+}
+
+.bottom-bar{
+    position: absolute;
+    top: 100%;
+    padding-bottom: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 20%;
+    background-color: black;
+    color: white;
+    font-size: 80%;
+}
+
+.bottom-bar p{
+    position: absolute;
+    left: 50%;
+    top: 15%;
+    transform: translateX(-50%);
+    text-wrap: nowrap;
+}
+
+
+/*_________________MEDIA________________________________________________________________________*/
+
+@media (max-width: 1300px) {
+    nav ul {
+        margin-right: 20px;
+        transition: margin-right 0.5s ease;
+    }
+}
+
+@media (max-width: 1220px){
+    .conteudo-administrador {
+    flex-direction: column;/* empilha os elementos */
+    width: 100%;
+    gap: 20px;
+    align-items: center;
+  }
+
+}
+
+
+@media (max-width: 900px) {
+
+    header{
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    header h1{
+        width: 170px;
+        text-align: center;
+    }
+    
+    nav{
+        display: none;
+        transition: opacity 0.3s ease;
+    }
+
+    header i{
+        opacity: 1;
+        display: block;
+        font-size: 200%;
+        width: 30px;
+        height: 20px;
+    }
+
+    nav ul{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 120px;
+        margin-top: 30px;
+        margin-left: 6dvh;
+    }
+
+    nav ul a{
+        background-color: rgb(231, 231, 231);
+        width: 120px;
+        height: 120px;
+    }
+
+    .nav-open{
+        display: block;
+        opacity: 1;
+        transform: translateX(-10%);
+    }
+
+    .submenu{
+        left: 50%;
+        transform: translateX(-51%);
+    
+    
+    }
+
+        footer{
+        height: 30vw;
+    }
+
+    footer .icons i{
+        font-size: 200%;
+    }
+}
+
+
+
+ 
+/*_________________ANIMATION________________________________________________________________________*/
+
+@keyframes fontswitch01 {
+    25% {
+
+    }
+    
+    50% {
+
+    }
+
+
+}
